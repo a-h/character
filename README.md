@@ -6,7 +6,7 @@ See https://www.sparkfun.com/datasheets/LCD/HD44780.pdf for more details.
 
 <img src="charlcd.jpg" />
 
-### Usage
+### Usage
 
 ```go
 package main
