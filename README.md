@@ -1,6 +1,8 @@
 ## Character
 
-Go driver for the Hitachi HD44780U LCD character display. Tested with the Raspberry Pi.
+Go driver for the Hitachi HD44780U LCD character display with i2c module. Tested with the Raspberry Pi.
+
+Specifically this one: https://www.amazon.co.uk/gp/product/B079DN35XY
 
 See https://www.sparkfun.com/datasheets/LCD/HD44780.pdf for more details.
 
