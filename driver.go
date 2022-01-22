@@ -1,8 +1,10 @@
 package character
 
-import "periph.io/x/periph/conn/i2c"
+import (
+	"time"
 
-import "time"
+	"periph.io/x/periph/conn/i2c"
+)
 
 // Good list of LCD displays: http://www.cpmspectrepi.uk/raspberry_pi/MoinMoinExport/VariousDisplays.html#A16x2_Character_LCD_.28Yellow_Backlight.29
 
@@ -45,6 +47,9 @@ const (
 )
 const (
 	InstructionSetDDRAMAddress uint8 = 0b10000000
+)
+const (
+	InstructionSetCGRAMAddress uint8 = 0b01000000
 )
 
 // Display drives an LCD display.
@@ -157,4 +162,19 @@ func (d *Display) DisplayShiftLeft() {
 // DisplayShiftRight moves the display to the right.
 func (d *Display) DisplayShiftRight() {
 	d.WriteInstruction(InstructionCursorOrDisplayShift | InstructionCursorOrDisplayShiftDisplayRight)
+}
+
+func (d *Display) WriteChar(value byte) {
+	d.write(value)
+}
+
+type CustomChar [8]byte
+
+func (d *Display) LoadCustomChars(chars [8]CustomChar) {
+	d.WriteInstruction(0b01000000)
+	for _, c := range chars {
+		for _, b := range c {
+			d.WriteChar(b)
+		}
+	}
 }
