@@ -164,17 +164,13 @@ func (d *Display) DisplayShiftRight() {
 	d.WriteInstruction(InstructionCursorOrDisplayShift | InstructionCursorOrDisplayShiftDisplayRight)
 }
 
-func (d *Display) WriteChar(value byte) {
-	d.write(value)
-}
+type CustomChars [8][8]byte
 
-type CustomChar [8]byte
-
-func (d *Display) LoadCustomChars(chars [8]CustomChar) {
-	d.WriteInstruction(0b01000000)
+func (d *Display) LoadCustomChars(chars CustomChars) {
+	d.WriteInstruction(InstructionSetCGRAMAddress)
 	for _, c := range chars {
 		for _, b := range c {
-			d.WriteChar(b)
+			d.WriteData(b)
 		}
 	}
 }
