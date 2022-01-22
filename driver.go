@@ -47,8 +47,6 @@ const (
 )
 const (
 	InstructionSetDDRAMAddress uint8 = 0b10000000
-)
-const (
 	InstructionSetCGRAMAddress uint8 = 0b01000000
 )
 
@@ -164,9 +162,8 @@ func (d *Display) DisplayShiftRight() {
 	d.WriteInstruction(InstructionCursorOrDisplayShift | InstructionCursorOrDisplayShiftDisplayRight)
 }
 
-type CustomChars [8][8]byte
-
-func (d *Display) LoadCustomChars(chars CustomChars) {
+// LoadCustomChars loads 8 custom characters into the CGRAM.
+func (d *Display) LoadCustomChars(chars [8][8]byte) {
 	d.WriteInstruction(InstructionSetCGRAMAddress)
 	for _, c := range chars {
 		for _, b := range c {
